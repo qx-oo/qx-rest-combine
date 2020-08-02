@@ -4,7 +4,7 @@ my django project combine rest api apps
 
 ### Install:
 
-    pip install -e git://github.com/qx-oo/qx-combine-rest.git@master#egg=qx-combine-rest
+    pip install -e git://github.com/qx-oo/qx-rest-combine.git@master#egg=qx-rest-combine
 
 ### Usage:
 
