@@ -7,7 +7,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from .utils import MyUrlResolve, parse_url
 from .request import RequestFactory
-from .serializers import ResourceSerializer
+from .serializers import ResourceSerializer, query_docs, response_docs
 
 
 PATH_NOTFOUND_RESPONSE = {
@@ -48,7 +48,9 @@ class ResourceViewSet(viewsets.GenericViewSet):
         多个资源同时请求
 
         多个资源同时请求
-    """
+        {}
+        {}
+    """.format(query_docs, response_docs)
 
     permission_classes = (
         AllowAny,
