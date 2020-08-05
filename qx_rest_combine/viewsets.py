@@ -7,7 +7,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from .utils import MyUrlResolve, parse_url
 from .request import RequestFactory
-from .serializers import ResourceSerializer, query_docs, response_docs
+from .serializers import ResourceSerializer
 
 
 PATH_NOTFOUND_RESPONSE = {
@@ -47,10 +47,34 @@ class ResourceViewSet(viewsets.GenericViewSet):
     create:
         多个资源同时请求
 
-        多个资源同时请求
-        {}
-        {}
-    """.format(query_docs, response_docs)
+        data最大长度10
+        请求参数:
+        {
+            "request_list": [
+                {
+                    "path": "/api/category/",
+                    "method": "post",
+                    "data": {
+                        "name": "123"
+                    }
+                },
+                {
+                    "path": "/api/category/",
+                    "method": "get"
+                }
+            ]
+        }
+        返回结果列表
+        {
+            "response_list": [
+                {
+                    "id": 1,
+                    "name": "123"
+                },
+                {}
+            ]
+        }
+    """
 
     permission_classes = (
         AllowAny,
