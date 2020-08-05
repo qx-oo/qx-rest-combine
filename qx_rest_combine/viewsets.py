@@ -23,10 +23,9 @@ PATH_ERROR_RESPONSE = {
     'msg': ['can not use resource in resouce api']
 }
 
-try:
+request_callback = None
+if hasattr(settings, 'COMBINE_REST_REQUEST_SET'):
     request_callback = import_string(settings.COMBINE_REST_REQUEST_SET)
-except (AttributeError, ImportError):
-    request_callback = None
 
 
 class ApiResponse(JsonResponse):
@@ -117,9 +116,9 @@ class ResourceViewSet(viewsets.GenericViewSet):
                     method, '', content_type='application/json',
                     **params, **kwargs)
             # set request params
-            _request.META['HTTP_MYAUTHORIZATION'] = \
-                request.META.get('HTTP_MYAUTHORIZATION', '')
-            _request._resource_user = request.user
+            if request.META.get('HTTP_MYAUTHORIZATION'):
+                _request.META['HTTP_MYAUTHORIZATION'] = \
+                    request.META.get('HTTP_MYAUTHORIZATION', '')
 
             # request set callback
             if request_callback:
