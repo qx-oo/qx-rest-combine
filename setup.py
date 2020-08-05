@@ -9,7 +9,7 @@ setup(
     url='https://github.com/qx-oo/qx-rest-combine/',
     description='Django combine rest apps.',
     long_description=open("README.md").read(),
-    packages=find_packages(exclude=["tests", "qx_test"]),
+    packages=find_packages(exclude=["qx_test"]),
     install_requires=[
         'Django >= 2.2',
         'djangorestframework >= 3.10',
