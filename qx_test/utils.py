@@ -1,2 +1,2 @@
-def request_set(request):
-    setattr(request, 'test', 1)
+def request_set(new_request, request):
+    setattr(new_request, 'test', 1)

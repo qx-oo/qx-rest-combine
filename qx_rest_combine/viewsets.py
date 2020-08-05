@@ -97,7 +97,7 @@ class ResourceViewSet(viewsets.GenericViewSet):
 
             # request set callback
             if request_callback:
-                request_callback(request)
+                request_callback(_request, request)
 
             # send request
             resp = csrf_exempt(callback)(
