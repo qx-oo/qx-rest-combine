@@ -11,8 +11,8 @@ setup(
     long_description=open("README.md").read(),
     packages=find_packages(exclude=["tests", "qx_test"]),
     install_requires=[
-        'Django >= 3.0',
-        'djangorestframework >= 3.11.0',
+        'Django >= 2.2',
+        'djangorestframework >= 3.10',
     ],
     python_requires='>=3.7',
     platforms='any',
