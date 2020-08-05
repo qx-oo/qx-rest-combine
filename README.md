@@ -12,7 +12,6 @@ settings.py:
 
     INSTALLED_APPS = [
         ...
-        # Make sure to put it last
         'qx_rest_combine',
     ]
 
