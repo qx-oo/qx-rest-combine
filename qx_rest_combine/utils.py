@@ -14,7 +14,8 @@ class MyUrlResolve():
         for pattern in cls._urls:
             try:
                 resolver_match = pattern.resolve(url)
-                return resolver_match
+                if resolver_match:
+                    return resolver_match
             except Resolver404:
                 pass
         raise Resolver404
