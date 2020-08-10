@@ -1,5 +1,6 @@
 import urllib
 from django.urls.exceptions import Resolver404
+from rest_framework.routers import APIRootView
 
 
 class MyUrlResolve():
@@ -14,11 +15,15 @@ class MyUrlResolve():
         for pattern in cls._urls:
             try:
                 resolver_match = pattern.resolve(url)
-                if resolver_match:
+                if not resolver_match:
+                    pass
+                elif resolver_match[0].cls == APIRootView:
+                    pass
+                else:
                     return resolver_match
             except Resolver404:
                 pass
-        raise Resolver404
+        raise Resolver404()
 
 
 def parse_url(url):

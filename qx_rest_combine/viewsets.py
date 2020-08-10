@@ -1,5 +1,6 @@
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.urls.exceptions import Resolver404
 from django.http import JsonResponse
 from django.conf import settings
 from django.utils.module_loading import import_string
@@ -92,8 +93,12 @@ class ResourceViewSet(viewsets.GenericViewSet):
 
             _path, params = parse_url(item['path'])
 
-            callback, callback_args, callback_kwargs = \
-                MyUrlResolve.get_callback(_path)
+            try:
+                callback, callback_args, callback_kwargs = \
+                    MyUrlResolve.get_callback(_path)
+            except Resolver404:
+                response_list.append(PATH_NOTFOUND_RESPONSE)
+                continue
 
             if self.__class__ == callback.cls:
                 response_list.append(PATH_ERROR_RESPONSE)
