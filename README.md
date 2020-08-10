@@ -17,6 +17,17 @@ settings.py:
 
     COMBINE_REST_REQUEST_SET = "qx_test.utils.request_set"
 
+    REST_FRAMEWORK = {
+        ...
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            ...
+            'qx_rest_combine.auth.ResourceAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+            ...
+        ),
+        ...
+    }
+
 urls.py:
 
     from qx_rest_combine.viewsets import ResourceViewSet

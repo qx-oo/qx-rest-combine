@@ -18,7 +18,7 @@ if __name__ == "__main__":
         ]
     }
     resp = requests.post(
-        'http://127.0.0.1:8000/api/resource/?test=10', json=req_data)
+        'http://127.0.0.1:9000/api/resource/?test=10', json=req_data)
     ret = resp.json()
     print("request 1:")
     print(ret)
@@ -30,7 +30,7 @@ if __name__ == "__main__":
             },
         ]
     }
-    resp = requests.post('http://127.0.0.1:8000/api/resource/', json=req_data)
+    resp = requests.post('http://127.0.0.1:9000/api/resource/', json=req_data)
     ret = resp.json()
     print()
     print("request 2:")

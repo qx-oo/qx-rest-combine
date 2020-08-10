@@ -43,9 +43,6 @@ INSTALLED_APPS = [
     'qx_rest_combine',
 ]
 
-# qx_rest_combine
-COMBINE_REST_REQUEST_SET = "qx_test.utils.request_set"
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -125,3 +122,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# qx_rest_combine
+COMBINE_REST_REQUEST_SET = "qx_test.utils.request_set"
+
+# RestFramework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # qx_rest_combine
+        'qx_rest_combine.auth.ResourceAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
+    'PAGE_SIZE': 15,
+}

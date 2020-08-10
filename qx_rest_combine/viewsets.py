@@ -120,6 +120,9 @@ class ResourceViewSet(viewsets.GenericViewSet):
                 _request.META['HTTP_MYAUTHORIZATION'] = \
                     request.META.get('HTTP_MYAUTHORIZATION', '')
 
+            # set request user
+            _request.__resource_user = request.user
+
             # request set callback
             if request_callback:
                 request_callback(_request, request)
