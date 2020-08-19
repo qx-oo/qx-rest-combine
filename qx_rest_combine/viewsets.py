@@ -113,12 +113,12 @@ class ResourceViewSet(viewsets.GenericViewSet):
 
             if method == "GET":
                 _request = factory.get(
-                    '', headers=request.headers, **params)
+                    item['path'], headers=request.headers, **params)
             else:
                 data = item.get('data', {})
                 kwargs['data'] = json.dumps(data)
                 _request = factory.generic(
-                    method, '', content_type='application/json',
+                    method, item['path'], content_type='application/json',
                     **params, **kwargs)
             # set request params
             if request.META.get('HTTP_MYAUTHORIZATION'):
