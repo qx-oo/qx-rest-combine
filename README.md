@@ -30,15 +30,10 @@ settings.py:
 
 urls.py:
 
-    from qx_rest_combine.viewsets import ResourceViewSet
-
-    router = DefaultRouter()
-
-    router.register('resource', ResourceViewSet, basename="resource")
-
     urlpatterns = [
         ...
-        path('api/', include(router.urls)),
+        path('api/resource/', include('qx_rest_combine.urls')),
+        ...
     ]
 
 ### Tests:
