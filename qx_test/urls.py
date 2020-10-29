@@ -17,15 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .post.views import PostViewSet, CategoryViewSet
-from qx_rest_combine.viewsets import ResourceViewSet
 
 router = DefaultRouter()
 
 router.register('post', PostViewSet)
 router.register('category', CategoryViewSet)
-router.register('resource', ResourceViewSet, basename="resource")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path("api/", include("qx_rest_combine.urls")),
 ]
