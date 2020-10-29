@@ -3,8 +3,7 @@ from rest_framework.routers import DefaultRouter
 from . import viewsets
 
 router = DefaultRouter()
-router.register('upload-img', viewsets.UploadImageViewset,
-                basename="upload_image")
+router.register('resource', viewsets.ResourceViewSet, basename="resource")
 
 urlpatterns = [
     path('', include(router.urls)),
