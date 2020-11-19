@@ -12,6 +12,21 @@ from .request import RequestFactory
 from .serializers import ResourceSerializer
 
 
+def _set_query_cache():
+    if not hasattr(_thread_locals, 'query_cache'):
+        _thread_locals.query_cache = {}
+
+
+def viewset_sqlcache(cls):
+    cls.___init__ = cls.__init__
+
+    def __init__(self, *args, **kwargs):
+        _set_query_cache()
+        self.___init__(*args, **kwargs)
+    cls.__init__ = __init__
+    return cls
+
+
 PATH_NOTFOUND_RESPONSE = {
     'code': 4044,
     'msg': ['path error']
@@ -83,7 +98,7 @@ class ResourceViewSet(viewsets.GenericViewSet):
     serializer_class = ResourceSerializer
 
     def create(self, request, *args, **kwargs):
-        _thread_locals.query_cache = {}
+        _set_query_cache()
 
         serializer = ResourceSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)

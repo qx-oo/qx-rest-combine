@@ -48,3 +48,11 @@ if __name__ == "__main__":
     print()
     print("request 2, {}:".format(secs))
     print(ret)
+
+    start = time.time()
+    resp = requests.get('http://127.0.0.1:9000/api/category/test/')
+    secs = round(time.time() - start, 3)
+    ret = resp.json()
+    print()
+    print("request 3, {}:".format(secs))
+    print(ret)
