@@ -6,6 +6,7 @@ from django.conf import settings
 from django.utils.module_loading import import_string
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
+from .sql import _thread_locals
 from .utils import MyUrlResolve, parse_url
 from .request import RequestFactory
 from .serializers import ResourceSerializer
@@ -82,6 +83,8 @@ class ResourceViewSet(viewsets.GenericViewSet):
     serializer_class = ResourceSerializer
 
     def create(self, request, *args, **kwargs):
+        _thread_locals.query_cache = {}
+
         serializer = ResourceSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         req_data = serializer.data
