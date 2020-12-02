@@ -56,3 +56,12 @@ if __name__ == "__main__":
     print()
     print("request 3, {}:".format(secs))
     print(ret)
+
+    resp = requests.post('http://127.0.0.1:9000/api/resource/', json={
+        "request_list": [
+            "string"
+        ]
+    })
+    ret = resp.json()
+    print()
+    print("request 4, {}".format(ret))

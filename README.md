@@ -25,6 +25,14 @@ urls.py:
         ...
     ]
 
+View Class Sql Cache:
+
+    from qx_rest_combine.viewsets import viewset_sqlcache
+
+    @viewset_sqlcache
+    class TestView:
+        pass
+
 ### Tests:
 
     python manage.py migrate
