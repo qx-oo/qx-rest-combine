@@ -14,6 +14,6 @@ setup(
         'Django >= 2.2',
         'djangorestframework >= 3.10',
     ],
-    python_requires='>=3.8',
+    python_requires='>=3.7',
     platforms='any',
 )
