@@ -20,7 +20,8 @@ def validate_for_resource(value):
         if method not in ['POST', 'PUT', 'PATCH', 'DELETE', 'GET']:
             raise serializers.ValidationError(
                 "{}, method error".format(item))
-        if data := item.get('data'):
+        data = item.get('data')
+        if data:
             if not isinstance(data, dict):
                 raise serializers.ValidationError(
                     "{}, data error".format(item))

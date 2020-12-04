@@ -19,7 +19,8 @@ def execute_sql(self, result_type=MULTI, chunked_fetch=False, **kwargs):
             else:
                 return
         if sql[:6].upper() == 'SELECT':
-            if ret := _thread_locals.query_cache.get(sql):
+            ret = _thread_locals.query_cache.get(sql)
+            if ret:
                 return ret
             ret = self._qx_execute_sql(
                 result_type=result_type, chunked_fetch=False, **kwargs)
