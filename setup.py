@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='qx-rest-combine',
-    version='1.0.9',
+    version='py37.1.0.9',
     author='Shawn',
     author_email='q-x64@live.com',
     url='https://github.com/qx-oo/qx-rest-combine/',
