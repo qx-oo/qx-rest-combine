@@ -13,6 +13,8 @@ def execute_sql(self, result_type=MULTI, chunked_fetch=False, **kwargs):
             sql, params = self.as_sql()
             if not sql:
                 raise EmptyResultSet
+            if params:
+                sql = sql % params
         except EmptyResultSet:
             if result_type == MULTI:
                 return iter([])
