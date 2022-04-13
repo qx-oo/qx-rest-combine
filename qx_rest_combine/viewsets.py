@@ -1,4 +1,5 @@
 import json
+import logging
 from django.views.decorators.csrf import csrf_exempt
 from django.urls.exceptions import Resolver404
 from django.http import JsonResponse
@@ -10,6 +11,9 @@ from .sql import _thread_locals
 from .utils import MyUrlResolve, parse_url
 from .request import RequestFactory
 from .serializers import ResourceSerializer
+
+
+logger = logging.getLogger(__name__)
 
 
 def _set_query_cache():
@@ -43,6 +47,10 @@ PATH_ERROR_RESPONSE = {
 request_callback = None
 if hasattr(settings, 'COMBINE_REST_REQUEST_SET'):
     request_callback = import_string(settings.COMBINE_REST_REQUEST_SET)
+deny_list = []
+if hasattr(settings, 'COMBINE_REST_DENY_LIST'):
+    if isinstance(settings.COMBINE_REST_DENY_LIST, list):
+        deny_list = settings.COMBINE_REST_DENY_LIST
 
 
 class ApiResponse(JsonResponse):
@@ -111,6 +119,10 @@ class ResourceViewSet(viewsets.GenericViewSet):
 
             _path, params = parse_url(item['path'])
 
+            if _path in deny_list:
+                response_list.append(PATH_NOTFOUND_RESPONSE)
+                continue
+
             try:
                 callback, callback_args, callback_kwargs = \
                     MyUrlResolve.get_callback(_path)
@@ -153,8 +165,9 @@ class ResourceViewSet(viewsets.GenericViewSet):
             # send request
             resp = csrf_exempt(callback)(
                 _request, *callback_args, **callback_kwargs)
-            if isinstance(resp.data, (dict, list)):
-                response_list.append(resp.data)
-            else:
+            try:
+                ret = json.loads(resp.content)
+                response_list.append(ret)
+            except Exception:
                 response_list.append(PATH_TYPERR_RESPONSE)
         return ApiResponse(response_list, code=200)

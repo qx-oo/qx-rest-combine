@@ -16,6 +16,7 @@ settings.py:
     ]
 
     COMBINE_REST_REQUEST_SET = "qx_test.utils.request_set"
+    COMBINE_REST_DENY_LIST = ["/api/test"]
 
 urls.py:
 
